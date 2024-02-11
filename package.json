@@ -1,0 +1,76 @@
+{
+  "name": "auto-jsx-attributes",
+  "displayName": "Auto JSX Attributes",
+  "description": "Automatically converts html attributes to jsx when pasted",
+  "repository": "",
+  "version": "0.0.1",
+  "publisher": "mixpeal",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.convertToJsx",
+        "title": "Convert attributes to JSX"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "when": "editorTextFocus && editorHasSelection",
+          "command": "extension.convertToJsx",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "HTML to JSX Converter",
+      "properties": {
+        "htmlToJsxConverter.autoFixOnPaste": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically convert HTML to JSX on paste."
+        },
+        "htmlToJsxConverter.convertScope": {
+          "type": "string",
+          "default": "jsxAndTsx",
+          "enum": [
+            "allFiles",
+            "jsxAndTsx"
+          ],
+          "enumDescriptions": [
+            "Convert HTML to JSX in all files.",
+            "Convert HTML to JSX only in .jsx and .tsx files."
+          ],
+          "description": "Scope of files where HTML to JSX conversion should be applied."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "18.x",
+    "@typescript-eslint/eslint-plugin": "^6.19.1",
+    "@typescript-eslint/parser": "^6.19.1",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3",
+    "@vscode/test-cli": "^0.0.4",
+    "@vscode/test-electron": "^2.3.9"
+  }
+}
