@@ -1,6 +1,6 @@
 # auto-jsx-attributes
 
-Welcome to "auto-jsx-attributes", a Visual Studio Code extension that simplifies the process of working with JSX by automatically converting HTML attributes to their JSX counterparts. This extension is particularly useful for developers who frequently switch between HTML and JSX or are transitioning projects to React.
+A Visual Studio Code extension that simplifies the process of working with JSX by automatically converting HTML attributes to their JSX counterparts. This extension is particularly useful for developers who frequently switch between HTML and JSX or are transitioning projects to React.
 
 ## Preview
 ![](/images/recording.gif)
@@ -58,7 +58,7 @@ In some cases, you may need to initiate the conversion process manually using th
 
 ## Release Notes
 
-### 0.0.1
+### 0.0.5
 
 Initial release of `auto-jsx-attributes`:
 - Basic HTML to JSX attribute conversion.
