@@ -2,10 +2,11 @@
   "name": "auto-jsx-attributes",
   "displayName": "Auto JSX Attributes",
   "description": "Automatically converts html attributes to jsx when pasted",
-  "repository": "",
-  "version": "0.0.1",
+  "repository": "https://github.com/Mixpeal/auto-jsx-attributes",
+  "version": "0.0.2",
   "publisher": "mixpeal",
   "license": "MIT",
+  "icon": "images/logo.png",
   "engines": {
     "vscode": "^1.85.0"
   },

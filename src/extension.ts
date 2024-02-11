@@ -1,10 +1,8 @@
 import * as vscode from "vscode";
 
-let isConverting = false; // Flag to prevent infinite loop
+let isConverting = false;
 
-// Define a mapping of HTML attributes to JSX attributes
 const attributeMap: { [key: string]: string } = {
-  // Common HTML attributes
   class: "className",
   for: "htmlFor",
   tabindex: "tabIndex",
@@ -137,22 +135,19 @@ const attributeMap: { [key: string]: string } = {
   "aria-roledescription": "ariaRoleDescription",
   "aria-setsize": "ariaSetSize",
 
-  // Other attributes
   crossorigin: "crossOrigin",
   keytype: "keyType",
 };
 
 export function activate(context: vscode.ExtensionContext) {
-  // Override the default paste command
   let disposablePaste = vscode.commands.registerCommand(
     "editor.action.clipboardPasteAction",
     async () => {
       const editor = vscode.window.activeTextEditor;
       if (!editor || isConverting) {
-        return; // No active editor or conversion is in progress
+        return; 
       }
 
-      // Read the settings
       const config = vscode.workspace.getConfiguration();
       const autoFixOnPaste = config.get<boolean>(
         "htmlToJsxConverter.autoFixOnPaste",
@@ -163,7 +158,6 @@ export function activate(context: vscode.ExtensionContext) {
         "jsxAndTsx"
       );
 
-      // Determine if the current file is .jsx or .tsx
       const isJsxOrTsxFile =
         editor.document.fileName.endsWith(".jsx") ||
         editor.document.fileName.endsWith(".tsx");
@@ -171,10 +165,8 @@ export function activate(context: vscode.ExtensionContext) {
         convertScope === "allFiles" ||
         (convertScope === "jsxAndTsx" && isJsxOrTsxFile);
 
-      // Get the clipboard contents
       const clipboardContent = await vscode.env.clipboard.readText();
 
-      // Check if the clipboard content should be converted
       if (
         autoFixOnPaste &&
         shouldConvert &&
@@ -184,26 +176,21 @@ export function activate(context: vscode.ExtensionContext) {
         const convertedContent = convertHtmlToJsx(clipboardContent);
         editor
           .edit((editBuilder) => {
-            // Replace the current selection with the converted content
             editBuilder.replace(editor.selection, convertedContent);
           })
           .then(() => {
-            isConverting = false; // Reset the flag after conversion
+            isConverting = false; 
           });
       } else {
-        // Temporarily disable the custom paste command listener
         disposablePaste.dispose();
 
-        // Invoke the default paste command
         await vscode.commands.executeCommand(
           "editor.action.clipboardPasteAction"
         );
 
-        // Re-enable the custom paste command listener
         disposablePaste = vscode.commands.registerCommand(
           "editor.action.clipboardPasteAction",
           async () => {
-            // The logic that was here has been removed as per your request
           }
         );
         context.subscriptions.push(disposablePaste);
@@ -213,7 +200,6 @@ export function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(disposablePaste);
 
-  // Register the 'Convert to JSX' command
   let disposableConvert = vscode.commands.registerCommand(
     "extension.convertToJsx",
     () => {
@@ -239,7 +225,7 @@ export function activate(context: vscode.ExtensionContext) {
             { undoStopBefore: true, undoStopAfter: true }
           )
           .then(() => {
-            isConverting = false; // Reset the flag after conversion
+            isConverting = false; 
           });
       } else {
         vscode.window.showInformationMessage(
@@ -259,7 +245,6 @@ function shouldConvertToJsx(text: string): boolean {
 }
 
 function convertHtmlToJsx(htmlContent: string): string {
-  // Replace attributes in the HTML content
   let jsxContent = htmlContent;
   for (const [htmlAttr, jsxAttr] of Object.entries(attributeMap)) {
     const regex = new RegExp(`\\b${htmlAttr}\\b`, "gi");
