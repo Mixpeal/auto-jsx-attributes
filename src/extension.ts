@@ -140,12 +140,12 @@ const attributeMap: { [key: string]: string } = {
 };
 
 export function activate(context: vscode.ExtensionContext) {
-  let disposablePaste = vscode.commands.registerCommand(
-    "editor.action.clipboardPasteAction",
+  let disposableCustomPaste = vscode.commands.registerCommand(
+    "extension.autoJsxPasteAction", // Custom command identifier
     async () => {
       const editor = vscode.window.activeTextEditor;
       if (!editor || isConverting) {
-        return; 
+        return;
       }
 
       const config = vscode.workspace.getConfiguration();
@@ -179,26 +179,16 @@ export function activate(context: vscode.ExtensionContext) {
             editBuilder.replace(editor.selection, convertedContent);
           })
           .then(() => {
-            isConverting = false; 
+            isConverting = false;
           });
       } else {
-        disposablePaste.dispose();
-
-        await vscode.commands.executeCommand(
-          "editor.action.clipboardPasteAction"
-        );
-
-        disposablePaste = vscode.commands.registerCommand(
-          "editor.action.clipboardPasteAction",
-          async () => {
-          }
-        );
-        context.subscriptions.push(disposablePaste);
+        // Use the default paste command if no conversion is needed
+        await vscode.commands.executeCommand("editor.action.clipboardPasteAction");
       }
     }
   );
 
-  context.subscriptions.push(disposablePaste);
+  context.subscriptions.push(disposableCustomPaste);
 
   let disposableConvert = vscode.commands.registerCommand(
     "extension.convertToJsx",
@@ -225,7 +215,7 @@ export function activate(context: vscode.ExtensionContext) {
             { undoStopBefore: true, undoStopAfter: true }
           )
           .then(() => {
-            isConverting = false; 
+            isConverting = false;
           });
       } else {
         vscode.window.showInformationMessage(

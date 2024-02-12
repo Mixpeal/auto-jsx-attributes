@@ -3,7 +3,7 @@
   "displayName": "Auto JSX Attributes",
   "description": "Automatically converts html attributes to jsx when pasted",
   "repository": "https://github.com/Mixpeal/auto-jsx-attributes",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "publisher": "mixpeal",
   "license": "MIT",
   "icon": "images/logo.png",
@@ -11,11 +11,22 @@
     "vscode": "^1.85.0"
   },
   "categories": [
-    "Other"
+    "Formatters",
+    "Programming Languages"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onCommand:extension.autoJsxPasteAction"
+  ],
   "main": "./out/extension.js",
   "contributes": {
+    "keybindings": [
+      {
+        "command": "extension.autoJsxPasteAction",
+        "key": "ctrl+shift+v",
+        "when": "editorTextFocus",
+        "mac": "cmd+shift+v"
+      }
+    ],
     "commands": [
       {
         "command": "extension.convertToJsx",

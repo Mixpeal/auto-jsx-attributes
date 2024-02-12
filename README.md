@@ -1,10 +1,9 @@
-# auto-jsx-attributes
+**Important: To use the auto-fix feature, paste with `Ctrl+Shift+V` on Windows/Linux or `Cmd+Shift+V` on macOS. This key combination is crucial for the automatic conversion of HTML to JSX attributes.**
 
 A Visual Studio Code extension that simplifies the process of working with JSX by automatically converting HTML attributes to their JSX counterparts. This extension is particularly useful for developers who frequently switch between HTML and JSX or are transitioning projects to React.
 
 ## Preview
 ![](/images/recording.gif)
-
 
 ## Features
 
@@ -16,7 +15,6 @@ A Visual Studio Code extension that simplifies the process of working with JSX b
 - **SVG Support**: Provides extensive support for SVG-specific attributes, making it easier to work with complex SVG elements in JSX.
 
 To see `auto-jsx-attributes` in action, imagine pasting the following HTML snippet into your JSX file:
-
 
 ```html
 <div class="container" tabindex="1">
@@ -51,12 +49,35 @@ To adjust these settings, navigate to the Visual Studio Code settings and look f
 
 Additionally, you can manually convert HTML to JSX by selecting the HTML code, right-clicking to open the context menu, and choosing "Convert attributes to JSX". This command is also available through the Command Palette.
 
+## Customizing Keybindings
+
+To customize the keybinding for the auto-fix feature:
+
+1. Open Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P`).
+2. Type `Preferences: Open Keyboard Shortcuts (JSON)` and select it.
+3. Add a new object to the array with your desired keybinding, for example:
+   ```json
+   {
+     "key": "ctrl+alt+v",
+     "command": "extension.autoJsxPasteAction",
+     "when": "editorTextFocus"
+   }
+   ```
+4. Save the `keybindings.json` file.
+
+This will override the default keybinding of `Ctrl+Shift+V` (Windows/Linux) or `Cmd+Shift+V` (macOS) with your custom keybinding.
+
 ## Known Issues
 
 In some cases, you may need to initiate the conversion process manually using the context menu option "Convert attributes to JSX" before the automatic fix-on-paste feature becomes operational.
 
-
 ## Release Notes
+
+### 0.0.6
+
+- Added the ability for users to customize the keybinding for the auto-fix feature.
+- Included documentation on how to change the key command.
+- To use the auto-fix feature, paste with `Ctrl+Shift+V` on Windows/Linux or `Cmd+Shift+V` on macOS.
 
 ### 0.0.5
 
@@ -68,4 +89,3 @@ Initial release of `auto-jsx-attributes`:
 ---
 
 **Enjoy coding with `auto-jsx-attributes`!**
-```
